@@ -94,10 +94,12 @@ namespace App.Infrastructure
                 var user = new ApplicationUser
                 {
                     UserName = registerDto.UserName,
+                    UserJobTitle = registerDto.UserJobTitle,
                     UserFullName = registerDto.UserFullName,
                     Email = registerDto.Email,
                     PhoneNumber = registerDto.Phone,
-                    UserImageUrl = registerDto.ImageUrl
+                    EmailConfirmed = true,
+                    PhoneNumberConfirmed = true
                 };
 
                 var result = await _userManager.CreateAsync(user, registerDto.Password);

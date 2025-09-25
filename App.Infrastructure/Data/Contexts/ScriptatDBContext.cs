@@ -1,10 +1,11 @@
 ﻿using App.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace App.Infrastructure
 {
-    public class ScriptatDBContext : DbContext
+    public class ScriptatDBContext : IdentityDbContext<ApplicationUser>
     {
         public ScriptatDBContext()
         {
@@ -23,6 +24,11 @@ namespace App.Infrastructure
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             //string _EntityConnectionString = "Server=.;Database=ScriptatDBNN;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True;";
             //optionsBuilder.UseSqlServer(_EntityConnectionString);
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
         }
 
         public DbSet<ScriptType> ScriptType { get; set; }

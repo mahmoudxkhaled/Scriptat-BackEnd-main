@@ -25,27 +25,14 @@ namespace Scriptat.API.Controllers
         {
             return await _usermanager.Login(loginDto);
         }
+
         [AllowAnonymous]
         [HttpPost("register")]
-        public async Task<ActionResult<ApiResult>> Register()
+        public async Task<ActionResult<ApiResult>> Register(RegisterDto registerDto)
         {
-            var requestdata = HttpContext.Request;
-            string imagePath = await ApiHelper.UploadUserImage(requestdata);
-            RegisterDto registerDto = new RegisterDto()
-            {
-                UserName = requestdata.Form["UserName"],
-                Email = requestdata.Form["Email"],
-                Password = requestdata.Form["Email"],
-                UserFullName = requestdata.Form["Email"],
-                Phone = requestdata.Form["Email"],
-                ImageUrl = imagePath
-
-            };
-
             ApiResult returnResult = await _usermanager.Register(registerDto);
             return Ok(returnResult);
         }
-
 
         //[AllowAnonymous]
         //[HttpPost("login")]
@@ -92,5 +79,6 @@ namespace Scriptat.API.Controllers
         //{
         //	return Ok(await _usermanager.UserToken());
         //}
+
     }
 }
